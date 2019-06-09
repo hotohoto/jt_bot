@@ -8,10 +8,19 @@ from books import replace_korean_book_name_with_english
 from download import get_lines_over_chapters
 
 if __name__ == "__main__":
-    # Retrieve JT
-    hwp_input = "_posts/20190602.hwp"  # FIXME find last hwp
-    tmp_output = "_posts/tmp.txt"
+    # Find last JT
+    posts_folder = "_posts"
+    files = [
+        x for x in os.listdir(posts_folder) if os.path.isfile(os.path.join(posts_folder, x)) and x.endswith(".hwp")
+    ]
+    files.sort(reverse=True)
+    if not files:
+        exit()
+    hwp_input = os.path.join(posts_folder, files[0])
+    print("input file: {}".format(hwp_input))
 
+    # Retrieve JT
+    tmp_output = "_posts/tmp.txt"
     cmd = "hwp5txt {} --output={}".format(hwp_input, tmp_output)
     os.system(cmd)
     with open(tmp_output) as f:
