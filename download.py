@@ -32,7 +32,7 @@ def get_lines(book_name, chapter=1, verse_start=1, verse_end=None, version="GAE"
                 if verse and verse >= verse_start - 1:
                     begin = True
                 continue
-            
+
             filtered_entries.append((verse, e.get_text()))
 
             if verse and verse_end and verse == verse_end:

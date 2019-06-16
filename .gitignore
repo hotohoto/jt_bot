@@ -1,6 +1,5 @@
 venv
 _tmp
-_posts
 dist
 __pycache__
 .vscode/.ropeproject

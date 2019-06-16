@@ -1,3 +1,4 @@
+import datetime
 import functools
 import os
 import re
@@ -16,12 +17,17 @@ if __name__ == "__main__":
     files.sort(reverse=True)
     if not files:
         exit()
-    hwp_input = os.path.join(posts_folder, files[0])
-    print("input file: {}".format(hwp_input))
+    input_path = os.path.join(posts_folder, files[0])
+    print("input file: {}".format(input_path))
+
+    _, file_name = os.path.split(input_path)
+    input_name, input_ext = os.path.splitext(file_name)
+    parsed_input_date = datetime.datetime.strptime(input_name, "%Y%m%d")
+    assert parsed_input_date.weekday() is 6, "Sunday check: {}" .format(parsed_input_date.weekday())
 
     # Retrieve JT
     tmp_output = "_posts/tmp.txt"
-    cmd = "hwp5txt {} --output={}".format(hwp_input, tmp_output)
+    cmd = "hwp5txt {} --output={}".format(input_path, tmp_output)
     os.system(cmd)
     with open(tmp_output) as f:
         jt = f.read()
@@ -49,7 +55,26 @@ if __name__ == "__main__":
 
         day_lines = [jt_lines[0]] + text_lines + jt_lines[1:]
 
+        note_link = "(이번주 JT: http://bit.ly/2IiNLfe)"
+        day_lines.append(note_link)
+
         days.append("\n".join([x.strip() for x in day_lines]))
 
-        with open("{}.{}.txt".format(hwp_input, i), "w") as f:
-            f.write(days[-1])
+    assert len(days) == 6, len(days)
+
+    # Write files
+    with open(os.path.join(posts_folder, "note.md"), "w") as note_file:
+        datetime_format = "%m/%d"
+        note_file.write("{} ~ {}\n\n".format(
+            (parsed_input_date + datetime.timedelta(days=1)).strftime(datetime_format),
+            (parsed_input_date + datetime.timedelta(days=6)).strftime(datetime_format)
+        ))
+        for i, d in enumerate(days):
+            target_datetime = parsed_input_date + datetime.timedelta(days=i+1)
+            target_filename = "{}.txt".format(i)
+            with open(os.path.join(posts_folder, target_filename), "w") as day_file:
+                day_file.write(d)
+            note_file.write("- [{}](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/{})\n".format(
+                target_datetime.strftime(datetime_format),
+                target_filename
+            ))
