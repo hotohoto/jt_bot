@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
         days.append("\n".join([x.strip() for x in day_lines]))
 
-    assert len(days) == 6, len(days)
+    assert len(days) == 7, len(days)
 
     # Write files
     with open(os.path.join(posts_folder, "note.md"), "w") as note_file:
