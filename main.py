@@ -60,14 +60,22 @@ if __name__ == "__main__":
 
         days.append("\n".join([x.strip() for x in day_lines]))
 
-    assert len(days) == 7, len(days)
+    assert len(days) == 6, len(days)
+
+    # Remove old files
+    old_files = [f for f in os.listdir(posts_folder) if re.match("[0-9]+\.txt", f)]
+    for f in old_files:
+        p = os.path.join(posts_folder, f)
+        os.remove(p)
+        print("{} removed.".format(p))
+
 
     # Write files
     with open(os.path.join(posts_folder, "note.md"), "w") as note_file:
         datetime_format = "%m/%d"
         note_file.write("{} ~ {}\n\n".format(
             (parsed_input_date + datetime.timedelta(days=1)).strftime(datetime_format),
-            (parsed_input_date + datetime.timedelta(days=6)).strftime(datetime_format)
+            (parsed_input_date + datetime.timedelta(days=len(days))).strftime(datetime_format)
         ))
         for i, d in enumerate(days):
             target_datetime = parsed_input_date + datetime.timedelta(days=i+1)
