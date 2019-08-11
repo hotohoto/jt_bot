@@ -74,6 +74,8 @@ def replace_korean_book_name_with_english(text:str):
     for r in rules:
         pattern, repl = r
         text = re.sub(pattern, repl, text)
+    text = text.replace("장", ":")
+    text = text.replace("절", " ")
     return text
 
 #%%
