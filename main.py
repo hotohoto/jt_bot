@@ -82,7 +82,7 @@ if __name__ == "__main__":
             target_filename = "{}.txt".format(i)
             with open(os.path.join(posts_folder, target_filename), "w") as day_file:
                 day_file.write(d)
-            note_file.write("- [{}](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/{})\n".format(
+            note_file.write("- [{}](http://www.jollybus.kr/apps/jt/index.html?num={})\n".format(
                 target_datetime.strftime(datetime_format),
-                target_filename
+                i
             ))
