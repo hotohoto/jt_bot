@@ -1,8 +1,8 @@
-08/05 ~ 08/10
+08/12 ~ 08/17
 
-- [08/05](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/0.txt)
-- [08/06](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/1.txt)
-- [08/07](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/2.txt)
-- [08/08](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/3.txt)
-- [08/09](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/4.txt)
-- [08/10](https://raw.githubusercontent.com/hotohoto/jt_bot/master/_posts/5.txt)
+- [08/12](http://www.jollybus.kr/apps/jt/index.html?num=0)
+- [08/13](http://www.jollybus.kr/apps/jt/index.html?num=1)
+- [08/14](http://www.jollybus.kr/apps/jt/index.html?num=2)
+- [08/15](http://www.jollybus.kr/apps/jt/index.html?num=3)
+- [08/16](http://www.jollybus.kr/apps/jt/index.html?num=4)
+- [08/17](http://www.jollybus.kr/apps/jt/index.html?num=5)
