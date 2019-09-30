@@ -14,7 +14,9 @@ if __name__ == "__main__":
     # Find last JT
     posts_folder = "_posts"
     files = [
-        x for x in os.listdir(posts_folder) if os.path.isfile(os.path.join(posts_folder, x)) and x.endswith(".hwp")
+        x
+        for x in os.listdir(posts_folder)
+        if os.path.isfile(os.path.join(posts_folder, x)) and x.endswith(".hwp")
     ]
     files.sort(reverse=True)
     if not files:
@@ -25,7 +27,9 @@ if __name__ == "__main__":
     _, file_name = os.path.split(input_path)
     input_name, input_ext = os.path.splitext(file_name)
     parsed_input_date = datetime.datetime.strptime(input_name, "%Y%m%d")
-    assert parsed_input_date.weekday() is 6, "Sunday check: {}" .format(parsed_input_date.weekday())
+    assert parsed_input_date.weekday() is 6, "Sunday check: {}".format(
+        parsed_input_date.weekday()
+    )
 
     # Retrieve JT
     tmp_output = "_posts/tmp.txt"
@@ -71,20 +75,26 @@ if __name__ == "__main__":
         os.remove(p)
         print("{} removed.".format(p))
 
-
     # Write files
     with open(os.path.join(posts_folder, "note.md"), "w") as note_file:
         datetime_format = "%m/%d"
-        note_file.write("{} ~ {}\n\n".format(
-            (parsed_input_date + datetime.timedelta(days=1)).strftime(datetime_format),
-            (parsed_input_date + datetime.timedelta(days=len(days))).strftime(datetime_format)
-        ))
+        note_file.write(
+            "{} ~ {}\n\n".format(
+                (parsed_input_date + datetime.timedelta(days=1)).strftime(
+                    datetime_format
+                ),
+                (parsed_input_date + datetime.timedelta(days=len(days))).strftime(
+                    datetime_format
+                ),
+            )
+        )
         for i, d in enumerate(days):
-            target_datetime = parsed_input_date + datetime.timedelta(days=i+1)
+            target_datetime = parsed_input_date + datetime.timedelta(days=i + 1)
             target_filename = "{}.txt".format(i)
             with open(os.path.join(posts_folder, target_filename), "w") as day_file:
                 day_file.write(d)
-            note_file.write("- [{}](http://www.jollybus.kr/apps/jt/index.html?num={})\n".format(
-                target_datetime.strftime(datetime_format),
-                i
-            ))
+            note_file.write(
+                "- [{}](http://www.jollybus.kr/apps/jt/index.html?num={})\n".format(
+                    target_datetime.strftime(datetime_format), i
+                )
+            )

@@ -1,4 +1,3 @@
-
 #%%
 
 import os
@@ -12,7 +11,9 @@ from books import book_name_to_code
 
 def get_lines(book_name, chapter=1, verse_start=1, verse_end=None, version="GAE"):
     book_code = book_name_to_code(book_name)
-    url ="https://www.bskorea.or.kr/bible/korbibReadpage.php?version={}&book={}&chap={}&sec=1&range=all&keyword1=".format(version, book_code, chapter)
+    url = "https://www.bskorea.or.kr/bible/korbibReadpage.php?version={}&book={}&chap={}&sec=1&range=all&keyword1=".format(
+        version, book_code, chapter
+    )
     print(book_name, chapter, verse_start, verse_end, url)
 
     with urllib.request.urlopen(url) as response:
@@ -39,6 +40,7 @@ def get_lines(book_name, chapter=1, verse_start=1, verse_end=None, version="GAE"
                 break
 
         return filtered_entries
+
 
 def get_lines_over_chapters(text_range):
     print(text_range)
