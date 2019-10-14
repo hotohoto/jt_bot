@@ -1,13 +1,13 @@
 #%%
 
-import os
-import re
+import ssl
 import urllib.request
 
 from bs4 import BeautifulSoup
 
 from books import book_name_to_code
 
+context = ssl._create_unverified_context()
 
 def get_lines(book_name, chapter=1, verse_start=1, verse_end=None, version="GAE"):
     book_code = book_name_to_code(book_name)
@@ -16,7 +16,7 @@ def get_lines(book_name, chapter=1, verse_start=1, verse_end=None, version="GAE"
     )
     print(book_name, chapter, verse_start, verse_end, url)
 
-    with urllib.request.urlopen(url) as response:
+    with urllib.request.urlopen(url, context=context) as response:
         html = response.read()
         soup = BeautifulSoup(html, "lxml")
         entries = soup.select("div#tdBible1>.smallTitle,div#tdBible1>span")
