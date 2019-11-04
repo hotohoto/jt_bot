@@ -1,8 +1,8 @@
-10/28 ~ 11/02
+11/04 ~ 11/09
 
-- [10/28](http://www.jollybus.kr/apps/jt/index.html?num=0)
-- [10/29](http://www.jollybus.kr/apps/jt/index.html?num=1)
-- [10/30](http://www.jollybus.kr/apps/jt/index.html?num=2)
-- [10/31](http://www.jollybus.kr/apps/jt/index.html?num=3)
-- [11/01](http://www.jollybus.kr/apps/jt/index.html?num=4)
-- [11/02](http://www.jollybus.kr/apps/jt/index.html?num=5)
+- [11/04](http://www.jollybus.kr/apps/jt/index.html?num=0)
+- [11/05](http://www.jollybus.kr/apps/jt/index.html?num=1)
+- [11/06](http://www.jollybus.kr/apps/jt/index.html?num=2)
+- [11/07](http://www.jollybus.kr/apps/jt/index.html?num=3)
+- [11/08](http://www.jollybus.kr/apps/jt/index.html?num=4)
+- [11/09](http://www.jollybus.kr/apps/jt/index.html?num=5)
