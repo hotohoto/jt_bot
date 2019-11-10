@@ -2,7 +2,7 @@
 import re
 
 #%%
-def replace_korean_book_name_with_english(text: str):
+def replace_korean_book_name_with_english(text: str, default_book_name: str):
     rules = [
         (r"(창세기)", "Genesis"),
         (r"(출애굽기)", "Exodus"),
@@ -71,12 +71,23 @@ def replace_korean_book_name_with_english(text: str):
         (r"(유다서)", "Jude"),
         (r"(요한계시록)", "Revelation"),
     ]
+    book_name_used = None
     for r in rules:
-        pattern, repl = r
-        text = re.sub(pattern, repl, text)
+        pattern, book_name = r
+        before = text
+        text = re.sub(pattern, book_name, text)
+        if before != text:
+            book_name_used = book_name
+            break
+    else:
+        if default_book_name is not None:
+            pattern = r"(\[[0-9]+\])"
+            repl = r"\1 " + re.escape(default_book_name)
+            text = re.sub(pattern, repl, text)
+            book_name_used = default_book_name
     text = text.replace("장", ":")
     text = text.replace("절", " ")
-    return text
+    return text, book_name_used
 
 
 #%%

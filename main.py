@@ -26,24 +26,27 @@ if __name__ == "__main__":
 
     _, file_name = os.path.split(input_path)
     input_name, input_ext = os.path.splitext(file_name)
+
     parsed_input_date = datetime.datetime.strptime(input_name, "%Y%m%d")
     assert parsed_input_date.weekday() is 6, "Sunday check: {}".format(
         parsed_input_date.weekday()
     )
 
     # Retrieve JT
-    tmp_output = "_posts/tmp.txt"
-    cmd = "hwp5txt {} --output={}".format(input_path, tmp_output)
-    os.system(cmd)
-    with open(tmp_output) as f:
+    input_tmp_txt = f"_posts/{input_name}.tmp.txt"
+    if not os.path.isfile(input_tmp_txt):
+        cmd = "hwp5txt {} --output={}".format(input_path, input_tmp_txt)
+        os.system(cmd)
+
+    with open(input_tmp_txt) as f:
         jt = f.read()
-    os.remove(tmp_output)
 
     headings = [h.start() for h in re.finditer(r"\[[0-9]+\]", jt)]
     headings.append(len(jt))
     days = []
 
     # Add bible text
+    last_book_name = None
     for i, h in enumerate(headings):
 
         if i == len(headings) - 1:
@@ -52,9 +55,13 @@ if __name__ == "__main__":
         jt_lines = jt[h : headings[i + 1]].split("\n")
 
         first_line = jt_lines[0]
-        translated_first_line = replace_korean_book_name_with_english(first_line)
-        extrancted_ranges = scriptures.extract(translated_first_line)
-        parsed_text_lines = get_lines_over_chapters(extrancted_ranges[0])
+        translated_first_line, last_book_name = replace_korean_book_name_with_english(
+            first_line,
+            last_book_name
+        )
+        print(translated_first_line, last_book_name)
+        extracted_ranges = scriptures.extract(translated_first_line)
+        parsed_text_lines = get_lines_over_chapters(extracted_ranges[0])
         text_lines = functools.reduce(
             lambda v, e: v + ([e[1]] if e[0] else ["", e[1]]), parsed_text_lines, []
         )
@@ -98,3 +105,5 @@ if __name__ == "__main__":
                     target_datetime.strftime(datetime_format), i
                 )
             )
+
+    os.remove(input_tmp_txt)
